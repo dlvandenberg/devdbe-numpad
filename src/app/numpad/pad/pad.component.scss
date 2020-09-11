@@ -1,0 +1,44 @@
+button.btn-pad {
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    line-height: 30px;
+    font-size: 50px;
+    text-align: center;
+    color: #f9f9f9;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.number {
+        background-color: #646464;
+
+        &:hover {
+            background-color: lighten(#646464, 10);
+        }
+
+        &:active {
+            background-color: darken(#646464, 10);
+        }
+    }
+
+    &.operator {
+        background-color: #f1951c;
+
+        &:hover {
+            background-color: lighten(#f1951c, 10);
+        }
+
+        &:active {
+            background-color: darken(#f1951c, 10);
+        }
+    }
+}
+
+app-pad.active > button {
+    background-color: #c5c5c5 !important;
+}
