@@ -20,8 +20,6 @@ export class NumpadService {
     } else {
       this.setDisplayValue(this.keepNumberOnScreen ? value : (this.display += value));
     }
-    console.log(`display: ${this.display}`);
-    console.log(`result: ${this.result}`);
   }
 
   private setDisplayValue(value: string): void {
@@ -39,9 +37,12 @@ export class NumpadService {
       this.clear();
     } else if (value === '=') {
       this.calculateResult();
-      this.clear();
+      this.result = 0;
+      this.display = '';
     } else if (value === '+/-') {
-        // this.transformSign();
+        this.transformSign();
+    } else if (value === '%') {
+      alert('Beep-boop!');
     } else if (this.display !== '') {
       if (this.operatorWasActive()) {
         this.calculateResult();
@@ -59,14 +60,14 @@ export class NumpadService {
     }
   }
 
-  // private transformSign(): void {
-  //   if (this.display.startsWith('-')) {
-  //     this.display = this.display.substr(1, this.display.length);
-  //   } else {
-  //     this.display = '-' + this.display;
-  //   }
-  //   this.displaySubject.next(this.display);
-  // }
+  private transformSign(): void {
+    if (('' + this.display).startsWith('-')) {
+      this.display = this.display.substr(1, this.display.length+1);
+    } else {
+      this.display = '-' + this.display;
+    }
+    this.displaySubject.next(this.display);
+  }
 
   private clear(): void  {
     this.activeOperatorSubject.next('');
@@ -79,7 +80,6 @@ export class NumpadService {
   }
 
   private calculateResult(): void {
-    console.log(`+this.display: ${+this.display}`);
     switch (this.activeOperatorSubject.value) {
       case '/':
         this.result /= +this.display;
