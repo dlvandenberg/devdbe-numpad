@@ -39,6 +39,7 @@ export class NumpadService {
       this.calculateResult();
       this.result = 0;
       this.display = '';
+      this.activeOperatorSubject.next('');
     } else if (value === '+/-') {
         this.transformSign();
     } else if (value === '%') {
